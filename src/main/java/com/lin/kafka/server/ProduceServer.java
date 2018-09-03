@@ -29,7 +29,7 @@ public class ProduceServer {
      * @param partitionNum 分区数 如果是否使用分区为0,分区数必须大于0
      * @param role 角色:bbc app erp...
      */
-    public Map<String,Object> sndMesForTemplate(String topic, Object value, String ifPartition,
+    public Map<String,Object> sendMesForTemplate(String topic, Object value, String ifPartition,
                                                 Integer partitionNum, String role){
         String key = role+"-"+value.hashCode();
         String valueString = JSON.toJSONString(value);
