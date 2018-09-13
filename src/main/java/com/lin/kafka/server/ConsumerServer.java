@@ -4,10 +4,12 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.listener.MessageListener;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Administrator on 2018/7/11.
  */
+@Component
 public class ConsumerServer implements MessageListener<String, String> {
     private static final Logger LOG = LoggerFactory.getLogger(ConsumerServer.class);
     /**
