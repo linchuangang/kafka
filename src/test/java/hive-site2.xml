@@ -140,12 +140,12 @@
   </property>
   <property>
     <name>hive.exec.local.scratchdir</name>
-    <value>/tmp/hive/scratch</value>
+    <value>${system:java.io.tmpdir}/${system:user.name}</value>
     <description>Local scratch space for Hive jobs</description>
   </property>
   <property>
     <name>hive.downloaded.resources.dir</name>
-    <value>/tmp/hive/resources</value>
+    <value>${system:java.io.tmpdir}/${hive.session.id}_resources</value>
     <description>Temporary local directory for added resources in the remote file system.</description>
   </property>
   <property>
@@ -441,7 +441,7 @@
   </property>
   <property>
     <name>hive.metastore.db.type</name>
-    <value>mysql</value>
+    <value>DERBY</value>
     <description>
       Expects one of [derby, oracle, mysql, mssql, postgres].
       Type of database used by the metastore. Information schema &amp; JDBCStorageHandler depend on it.
@@ -564,7 +564,7 @@
       has an infinite lifetime.
     </description>
   </property>
-  <property>
+   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
     <value>123456</value>
     <description>password to use against metastore database</description>
@@ -799,8 +799,8 @@
     <description>
       Enforce metastore schema version consistency.
       True: Verify that version information stored in is compatible with one from Hive jars.  Also disable automatic
-      schema migration attempt. Users are required to manually migrate schema after Hive upgrade which ensures
-      proper metastore schema migration. (Default)
+            schema migration attempt. Users are required to manually migrate schema after Hive upgrade which ensures
+            proper metastore schema migration. (Default)
       False: Warn if the version information stored in metastore doesn't match with one from in Hive jars.
     </description>
   </property>
@@ -809,7 +809,7 @@
     <value>false</value>
     <description>
       When true the current MS version is recorded in the VERSION table. If this is disabled and verification is
-      enabled the MS will be unusable.
+       enabled the MS will be unusable.
     </description>
   </property>
   <property>
@@ -818,7 +818,7 @@
     <description>
       Fully qualified class name for the metastore schema information class
       which is used by schematool to fetch the schema information.
-      This class should implement the IMetaStoreSchemaInfo interface
+       This class should implement the IMetaStoreSchemaInfo interface
     </description>
   </property>
   <property>
@@ -1027,7 +1027,7 @@
     <value>100</value>
     <description>
       The maximum
-      size of a query string (in KB).
+       size of a query string (in KB).
     </description>
   </property>
   <property>
@@ -1035,7 +1035,7 @@
     <value>1000</value>
     <description>
       The maximum number of values in a IN clause. Once exceeded, it will be broken into
-      multiple OR separated IN clauses.
+       multiple OR separated IN clauses.
     </description>
   </property>
   <property>
@@ -1314,7 +1314,7 @@
     <description>
       Sets the time-zone for displaying and interpreting time stamps. If this property value is set to
       LOCAL, it is not specified, or it is not a correct time-zone, the system default time-zone will be
-      used instead. Time-zone IDs can be specified as region-based zone IDs (based on IANA time-zone data),
+       used instead. Time-zone IDs can be specified as region-based zone IDs (based on IANA time-zone data),
       abbreviated zone IDs, or offset IDs.
     </description>
   </property>
@@ -1418,7 +1418,7 @@
     <value>false</value>
     <description>
       Enabling strict large query checks disallows the following:
-      Orderby without limit.
+        Orderby without limit.
       Note that this check currently does not consider data size, only the query pattern.
     </description>
   </property>
@@ -1427,7 +1427,7 @@
     <value>false</value>
     <description>
       Enabling strict large query checks disallows the following:
-      No partition being picked up for a query against partitioned table.
+        No partition being picked up for a query against partitioned table.
       Note that this check currently does not consider data size, only the query pattern.
     </description>
   </property>
@@ -1436,8 +1436,8 @@
     <value>true</value>
     <description>
       Enabling strict type safety checks disallows the following:
-      Comparing bigints and strings.
-      Comparing bigints and doubles.
+        Comparing bigints and strings.
+        Comparing bigints and doubles.
     </description>
   </property>
   <property>
@@ -1445,7 +1445,7 @@
     <value>false</value>
     <description>
       Enabling strict Cartesian join checks disallows the following:
-      Cartesian product (cross join).
+        Cartesian product (cross join).
     </description>
   </property>
   <property>
@@ -1453,7 +1453,7 @@
     <value>true</value>
     <description>
       Enabling strict bucketing checks disallows the following:
-      Load into bucketed tables.
+        Load into bucketed tables.
     </description>
   </property>
   <property>
@@ -1577,8 +1577,8 @@
     <description>
       Expects one of [heuristic, costbased].
       The strategy that should be used to cost and select the materialized view rewriting.
-      heuristic: Always try to select the plan using the materialized view if rewriting produced one,choosing the plan with lower cost among possible plans containing a materialized view
-      costbased: Fully cost-based strategy, always use plan with lower cost, independently on whether it uses a materialized view or not
+        heuristic: Always try to select the plan using the materialized view if rewriting produced one,choosing the plan with lower cost among possible plans containing a materialized view
+        costbased: Fully cost-based strategy, always use plan with lower cost, independently on whether it uses a materialized view or not
     </description>
   </property>
   <property>
@@ -1955,10 +1955,10 @@
     <description>
       In test mode, specifies sampling frequency for table, which is not bucketed,
       For example, the following query:
-      INSERT OVERWRITE TABLE dest SELECT col1 from src
+        INSERT OVERWRITE TABLE dest SELECT col1 from src
       would be converted to
-      INSERT OVERWRITE TABLE test_dest
-      SELECT col1 from src TABLESAMPLE (BUCKET 1 out of 32 on rand(1))
+        INSERT OVERWRITE TABLE test_dest
+        SELECT col1 from src TABLESAMPLE (BUCKET 1 out of 32 on rand(1))
     </description>
   </property>
   <property>
@@ -2814,7 +2814,7 @@
     <value>true</value>
     <description>
       Whether to combine equivalent work objects during physical optimization.
-      This optimization looks for equivalent work objects and combines them if they meet certain preconditions. Spark only.
+       This optimization looks for equivalent work objects and combines them if they meet certain preconditions. Spark only.
     </description>
   </property>
   <property>
@@ -3207,7 +3207,7 @@
     <name>hive.txn.xlock.iow</name>
     <value>true</value>
     <description>
-      Ensures commands with OVERWRITE (such as INSERT OVERWRITE) acquire Exclusive locks for transactional tables.  This ensures that inserts (w/o overwrite) running concurrently
+      Ensures commands with OVERWRITE (such as INSERT OVERWRITE) acquire Exclusive locks for&#8;transactional tables.  This ensures that inserts (w/o overwrite) running concurrently
       are not hidden by the INSERT OVERWRITE.
     </description>
   </property>
@@ -3898,10 +3898,10 @@
     <value>true</value>
     <description>
       Whether to enable Log4j2's asynchronous logging. Asynchronous logging can give
-      significant performance improvement as logging will be handled in separate thread
-      that uses LMAX disruptor queue for buffering log messages.
-      Refer https://logging.apache.org/log4j/2.x/manual/async.html for benefits and
-      drawbacks.
+       significant performance improvement as logging will be handled in separate thread
+       that uses LMAX disruptor queue for buffering log messages.
+       Refer https://logging.apache.org/log4j/2.x/manual/async.html for benefits and
+       drawbacks.
     </description>
   </property>
   <property>
@@ -4105,7 +4105,7 @@
     <description>
       Expects value bigger than 0.
       Number of times HiveServer2 will attempt to start before exiting. The sleep interval between retries is determined by hive.server2.sleep.interval.between.start.attempts
-      The default of 30 will keep trying for 30 minutes.
+       The default of 30 will keep trying for 30 minutes.
     </description>
   </property>
   <property>
@@ -4171,8 +4171,8 @@
     <description>
       Expects one of [default, dummy].
       The implementation that we should use for the materialized views registry.
-      DEFAULT: Default cache for materialized views
-      DUMMY: Do not cache materialized views and hence forward requests to metastore
+        DEFAULT: Default cache for materialized views
+        DUMMY: Do not cache materialized views and hence forward requests to metastore
     </description>
   </property>
   <property>
@@ -4396,7 +4396,7 @@
   </property>
   <property>
     <name>hive.server2.logging.operation.log.location</name>
-    <value>/tmp/hive/operation_logs</value>
+    <value>${system:java.io.tmpdir}/${system:user.name}/operation_logs</value>
     <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
   </property>
   <property>
@@ -4406,10 +4406,10 @@
       Expects one of [none, execution, performance, verbose].
       HS2 operation logging mode available to clients to be set at session level.
       For this to work, hive.server2.logging.operation.enabled should be set to true.
-      NONE: Ignore any logging
-      EXECUTION: Log completion of tasks
-      PERFORMANCE: Execution + Performance logs
-      VERBOSE: All logs
+        NONE: Ignore any logging
+        EXECUTION: Log completion of tasks
+        PERFORMANCE: Execution + Performance logs
+        VERBOSE: All logs
     </description>
   </property>
   <property>
@@ -4418,7 +4418,7 @@
     <description>
       Expects a time value with unit (d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec), which is sec if not specified.
       When a query is cancelled (via kill query, query timeout or triggers),
-      operation logs gets cleaned up after this delay
+       operation logs gets cleaned up after this delay
     </description>
   </property>
   <property>
@@ -4535,9 +4535,9 @@
       Setting hadoop.rpc.protection to a higher level than HiveServer2 does not
       make sense in most situations. HiveServer2 ignores hadoop.rpc.protection in favor
       of hive.server2.thrift.sasl.qop.
-      "auth" - authentication only (default)
-      "auth-int" - authentication plus integrity protection
-      "auth-conf" - authentication plus integrity and confidentiality protection
+        "auth" - authentication only (default)
+        "auth-int" - authentication plus integrity protection
+        "auth-conf" - authentication plus integrity and confidentiality protection
       This is applicable only if HiveServer2 is configured to use Kerberos authentication.
     </description>
   </property>
@@ -4635,13 +4635,13 @@
     <description>
       Expects one of [nosasl, none, ldap, kerberos, pam, custom].
       Client authentication types.
-      NONE: no authentication check
-      LDAP: LDAP/AD based authentication
-      KERBEROS: Kerberos/GSSAPI authentication
-      CUSTOM: Custom authentication provider
-      (Use with property hive.server2.custom.authentication.class)
-      PAM: Pluggable authentication module
-      NOSASL:  Raw transport
+        NONE: no authentication check
+        LDAP: LDAP/AD based authentication
+        KERBEROS: Kerberos/GSSAPI authentication
+        CUSTOM: Custom authentication provider
+                (Use with property hive.server2.custom.authentication.class)
+        PAM: Pluggable authentication module
+        NOSASL:  Raw transport
     </description>
   </property>
   <property>
@@ -4674,9 +4674,9 @@
       HTTP transport mode is used.
       This needs to be set only if SPNEGO is to be used in authentication.
       SPNego authentication would be honored only if valid
-      hive.server2.authentication.spnego.principal
+        hive.server2.authentication.spnego.principal
       and
-      hive.server2.authentication.spnego.keytab
+        hive.server2.authentication.spnego.keytab
       are specified.
     </description>
   </property>
@@ -4698,7 +4698,7 @@
       LDAP connection URL(s),
       this value could contain URLs to multiple LDAP servers instances for HA,
       each LDAP URL is separated by a SPACE character. URLs are used in the
-      order specified until a connection is successful.
+       order specified until a connection is successful.
     </description>
   </property>
   <property>
@@ -4834,8 +4834,8 @@
       Expects one of [classic, hive].
       This setting reflects how HiveServer2 will report the table types for JDBC and other
       client implementations that retrieve the available tables and supported table types
-      HIVE : Exposes Hive's native table types like MANAGED_TABLE, EXTERNAL_TABLE, VIRTUAL_VIEW
-      CLASSIC : More generic types like TABLE and VIEW
+        HIVE : Exposes Hive's native table types like MANAGED_TABLE, EXTERNAL_TABLE, VIRTUAL_VIEW
+        CLASSIC : More generic types like TABLE and VIEW
     </description>
   </property>
   <property>
@@ -4918,8 +4918,8 @@
     <description>
       Expects a time value with unit (d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec), which is msec if not specified.
       Operation will be closed when it's not accessed for this duration of time, which can be disabled by setting to zero value.
-      With positive value, it's checked for operations in terminal state only (FINISHED, CANCELED, CLOSED, ERROR).
-      With negative value, it's checked for all of the operations regardless of state.
+        With positive value, it's checked for operations in terminal state only (FINISHED, CANCELED, CLOSED, ERROR).
+        With negative value, it's checked for all of the operations regardless of state.
     </description>
   </property>
   <property>
@@ -4927,7 +4927,7 @@
     <value>true</value>
     <description>
       Session will be considered to be idle only if there is no activity, and there is no pending operation.
-      This setting takes effect only if session idle timeout (hive.server2.idle.session.timeout) and checking
+       This setting takes effect only if session idle timeout (hive.server2.idle.session.timeout) and checking
       (hive.server2.session.check.interval) are enabled.
     </description>
   </property>
@@ -4964,7 +4964,7 @@
     <value>false</value>
     <description>
       Whether we should serialize the Thrift structures used in JDBC ResultSet RPC in task nodes.
-      We use SequenceFile and ThriftJDBCBinarySerDe to read and write the final results if this is true.
+       We use SequenceFile and ThriftJDBCBinarySerDe to read and write the final results if this is true.
     </description>
   </property>
   <property>
@@ -5021,12 +5021,12 @@
       multi-insert query will only begin once the dependencies for all these move tasks have been
       met.
       Advantages: If concurrency is enabled, the locks will only be released once the query has
-      finished, so with this config enabled, the time when the table/partition is
-      generated will be much closer to when the lock on it is released.
+                  finished, so with this config enabled, the time when the table/partition is
+                  generated will be much closer to when the lock on it is released.
       Disadvantages: If concurrency is not enabled, with this disabled, the tables/partitions which
-      are produced by this query and finish earlier will be available for querying
-      much earlier.  Since the locks are only released once the query finishes, this
-      does not apply if concurrency is enabled.
+                     are produced by this query and finish earlier will be available for querying
+                     much earlier.  Since the locks are only released once the query finishes, this
+                     does not apply if concurrency is enabled.
     </description>
   </property>
   <property>
@@ -5049,14 +5049,14 @@
       anything from being inferred.
       With hive.exec.infer.bucket.sort set to true:
       Advantages:  If this is not set, the number of buckets for partitions will seem arbitrary,
-      which means that the number of mappers used for optimized joins, for example, will
-      be very low.  With this set, since the number of buckets used for any partition is
-      a power of two, the number of mappers used for optimized joins will be the least
-      number of buckets used by any partition being joined.
+                   which means that the number of mappers used for optimized joins, for example, will
+                   be very low.  With this set, since the number of buckets used for any partition is
+                   a power of two, the number of mappers used for optimized joins will be the least
+                   number of buckets used by any partition being joined.
       Disadvantages: This may mean a much larger or much smaller number of reducers being used in the
-      final map reduce job, e.g. if a job was originally going to take 257 reducers,
-      it will now take 512 reducers, similarly if the max number of reducers is 511,
-      and a job was going to use this many, it will now use 256 reducers.
+                     final map reduce job, e.g. if a job was originally going to take 257 reducers,
+                     it will now take 512 reducers, similarly if the max number of reducers is 511,
+                     and a job was going to use this many, it will now use 256 reducers.
     </description>
   </property>
   <property>
@@ -5226,7 +5226,7 @@
     <value/>
     <description>
       This configuration should be set to fully described input format class names for which
-      vectorized input format should not be used for vectorized execution.
+       vectorized input format should not be used for vectorized execution.
     </description>
   </property>
   <property>
@@ -5305,7 +5305,7 @@
     <description>
       This flag should be set to true to use overflow checked vector expressions when available.
       For example, arithmetic expressions which can overflow the output data type can be evaluated using
-      checked vector expressions so that they produce same result as non-vectorized evaluation.
+       checked vector expressions so that they produce same result as non-vectorized evaluation.
     </description>
   </property>
   <property>
@@ -5334,7 +5334,7 @@
       0. adaptor: only use the VectorUDFAdaptor to vectorize IF statements
       1. good   : use regular vectorized IF expression classes that get good performance
       2. better : use vectorized IF expression classes that conditionally execute THEN/ELSE
-      expressions for better performance.
+                  expressions for better performance.
     </description>
   </property>
   <property>
@@ -5406,8 +5406,8 @@
     <description>
       Expects one of [none, column].
       Whether to use quoted identifier. 'none' or 'column' can be used.
-      none: default(past) behavior. Implies only alphaNumeric and underscore are valid characters in identifiers.
-      column: implies column names can contain any character.
+        none: default(past) behavior. Implies only alphaNumeric and underscore are valid characters in identifiers.
+        column: implies column names can contain any character.
     </description>
   </property>
   <property>
@@ -5442,7 +5442,7 @@
     <description>
       Enable (configurable) deprecated behaviors by setting desired level of backward compatibility.
       Setting to 0.12:
-      Maintains division behavior: int / int = double
+        Maintains division behavior: int / int = double
     </description>
   </property>
   <property>
@@ -5793,8 +5793,8 @@
       Lambda for ORC low-level cache LRFU cache policy. Must be in [0, 1]. 0 makes LRFU
       behave like LFU, 1 makes it behave like LRU, values in between balance accordingly.
       The meaning of this parameter is the inverse of the number of time ticks (cache
-      operations, currently) that cause the combined recency-frequency of a block in cache
-      to be halved.
+       operations, currently) that cause the combined recency-frequency of a block in cache
+       to be halved.
     </description>
   </property>
   <property>
@@ -6394,9 +6394,9 @@
     <value>30,60,300</value>
     <description>
       Comma-delimited set of integers denoting the desired rollover intervals (in seconds)
-      for percentile latency metrics. Used by LLAP daemon task scheduler metrics for
-      time taken to kill task (due to pre-emption) and useful time wasted by the task that
-      is about to be preempted.
+       for percentile latency metrics. Used by LLAP daemon task scheduler metrics for
+       time taken to kill task (due to pre-emption) and useful time wasted by the task that
+       is about to be preempted.
     </description>
   </property>
   <property>
@@ -6490,7 +6490,7 @@
     <value>8</value>
     <description>
       Maximum number of queued writes allowed per connection when sending data
-      via the LLAP output service to external clients.
+       via the LLAP output service to external clients.
     </description>
   </property>
   <property>
@@ -6714,7 +6714,7 @@
     <value>3000</value>
     <description>
       Batch size for the msck repair command. If the value is greater than zero,
-      it will execute batch wise with the configured batch size. In case of errors while
+       it will execute batch wise with the configured batch size. In case of errors while
       adding unknown partitions the batch size is automatically reduced by half in the subsequent
       retry attempt. The default value is 3000 which means it will execute in the batches of 3000.
     </description>
@@ -6724,7 +6724,7 @@
     <value>4</value>
     <description>
       Maximum number of retries for the msck repair command when adding unknown partitions.
-      If the value is greater than zero it will retry adding unknown partitions until the maximum
+       If the value is greater than zero it will retry adding unknown partitions until the maximum
       number of attempts is reached or batch size is reduced to 0, whichever is earlier.
       In each retry attempt it will reduce the batch size by a factor of 2 until it reaches zero.
       If the value is set to zero it will retry until the batch size becomes zero as described above.
@@ -6805,8 +6805,8 @@
     <value>overlay,reoptimize</value>
     <description>
       comma separated list of plugin can be used:
-      overlay: hiveconf subtree 'reexec.overlay' is used as an overlay in case of an execution errors out
-      reoptimize: collects operator statistics during execution and recompile the query after a failure
+        overlay: hiveconf subtree 'reexec.overlay' is used as an overlay in case of an execution errors out
+        reoptimize: collects operator statistics during execution and recompile the query after a failure
     </description>
   </property>
   <property>
@@ -6815,9 +6815,9 @@
     <description>
       Expects one of [query, hiveserver, metastore].
       Sets the persistence scope of runtime statistics
-      query: runtime statistics are only used during re-execution
-      hiveserver: runtime statistics are persisted in the hiveserver - all sessions share it
-      metastore: runtime statistics are persisted in the metastore as well
+        query: runtime statistics are only used during re-execution
+        hiveserver: runtime statistics are persisted in the hiveserver - all sessions share it
+        metastore: runtime statistics are persisted in the metastore as well
     </description>
   </property>
   <property>
