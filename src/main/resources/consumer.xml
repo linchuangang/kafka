@@ -16,14 +16,17 @@
             </map>
         </constructor-arg>
     </bean>
+
     <!-- 创建consumerFactory bean -->
     <bean id="consumerFactory" class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
         <constructor-arg>
             <ref bean="consumerProperties"/>
         </constructor-arg>
     </bean>
+
     <!-- 实际执行消息消费的类 -->
     <bean id="messageListernerConsumerService" class="com.lin.kafka.server.ConsumerServer"/>
+
     <!-- 消费者容器配置信息 -->
     <bean id="containerProperties_trade" class="org.springframework.kafka.listener.config.ContainerProperties">
         <constructor-arg value="orderTopic"/>
